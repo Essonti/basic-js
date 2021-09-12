@@ -13,7 +13,50 @@ import { NotImplementedError } from '../extensions/index.js';
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-export default function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+export default function transform(arr) {
+  const index = 0;
+  
+    
+      if (!Array.isArray(arr)) {       
+    
+      throw new Error ("\'arr\' parameter must be an instance of the Array!");
+    }
+    
+    let transArr = [];
+    for (let i = 0; i < arr.length; i++) {
+      
+      
+      if (arr[i] === '--discard-prev' && arr[i - 2] !== '--discard-next') {
+        transArr.splice(i - 1, 2);
+      } 
+      if (arr[i] === '--double-next') {
+        if (i !== arr.length - 1) {
+          transArr.push(arr[i + 1]);
+        } else {transArr.splice(i, 1);}
+      }
+      if (arr[i] === '--double-prev' && arr[i - 2] !== '--discard-next') {
+        if (i !== 0) {
+          transArr.push(arr[i - 1]);
+        } else {transArr.splice(i, 1);}
+      }
+      if (typeof arr[i] === "number") {transArr.push(arr[i]);}
+      if (arr[i] === '--discard-next') {
+        if (i !== arr.length - 1) {
+          i++;      
+        } else {transArr.splice(i, 1);}
+      } 
+    }
+    return transArr;
+  }
+
+
+//console.log(transform([1, 2, 3, '--discard-next', 1337, '--double-prev', 4, 5]))
+//console.log(transform([1, 2, 3, '--discard-next', 1337, '--discard-prev', 4, 5]))
+/*console.log(transform([1, 2, 3, '--double-next', 1337, '--discard-prev', 4, 5]));
+console.log(transform(3)),
+console.log(transform(3.312312)),
+console.log(transform(false)),
+console.log(transform(null)),
+console.log(transform(undefined)),
+console.log(transform({ 'foo': 'bar' }))*/
+

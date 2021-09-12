@@ -14,14 +14,21 @@ import { NotImplementedError } from '../extensions/index.js';
 export default function getSeason(springDate) {
   
     //console.log (Object.prototype.toString.call([2019, '27', 0 + '1']));
-    //console.log (Object.prototype.toString.call(springDate));
+    //console.log (Object.keys(springDate));
     if (springDate !== undefined) {
+      if (Object.keys(springDate).length > 0) {
+        throw new Error ('Invalid date!');
+      }
+
       if (Object.prototype.toString.call(springDate) === "[object Date]" && isNaN(Date.parse(springDate)) === false) {
-        if (springDate.getMonth() === 11 || springDate.getMonth() === 0 || springDate.getMonth() === 1) return 'winter';
-      if (springDate.getMonth() === 2 || springDate.getMonth() === 3 || springDate.getMonth() === 4) return 'spring';
-      if (springDate.getMonth() === 5 || springDate.getMonth() === 6 || springDate.getMonth() === 7) return 'summer';
-      if (springDate.getMonth() === 8 || springDate.getMonth() === 9 || springDate.getMonth() === 10) return 'autumn';
-      } else {return 'Invalid date!'};
+        
+          if (springDate.getMonth() === 11 || springDate.getMonth() === 0 || springDate.getMonth() === 1) return 'winter';
+          if (springDate.getMonth() === 2 || springDate.getMonth() === 3 || springDate.getMonth() === 4) return 'spring';
+          if (springDate.getMonth() === 5 || springDate.getMonth() === 6 || springDate.getMonth() === 7) return 'summer';
+          if (springDate.getMonth() === 8 || springDate.getMonth() === 9 || springDate.getMonth() === 10) return 'autumn';
+        
+        
+      } else {throw new Error ('Invalid date!')};
     } else {return 'Unable to determine the time of year!'};
     
 
@@ -31,7 +38,7 @@ export default function getSeason(springDate) {
     
 
 //console.log(fakeDate);
-//console.log(getSeason(20192701));
+//console.log(getSeason( { John: 'Smith' }));
 
 /* getSeason('foo'),
                 () => getSeason({ John: 'Smith' }),
