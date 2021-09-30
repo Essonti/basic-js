@@ -27,23 +27,23 @@ export default function transform(arr) {
       
       
       if (arr[i] === '--discard-prev' && arr[i - 2] !== '--discard-next') {
-        transArr.splice(i - 1, 2);
+        transArr.splice(transArr.length - 1, 1);
       } 
       if (arr[i] === '--double-next') {
         if (i !== arr.length - 1) {
           transArr.push(arr[i + 1]);
-        } else {transArr.splice(i, 1);}
+        } 
       }
       if (arr[i] === '--double-prev' && arr[i - 2] !== '--discard-next') {
         if (i !== 0) {
           transArr.push(arr[i - 1]);
-        } else {transArr.splice(i, 1);}
+        } 
       }
       if (typeof arr[i] === "number") {transArr.push(arr[i]);}
       if (arr[i] === '--discard-next') {
         if (i !== arr.length - 1) {
           i++;      
-        } else {transArr.splice(i, 1);}
+        } 
       } 
     }
     return transArr;
